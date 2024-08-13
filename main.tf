@@ -10,6 +10,7 @@ resource "couchbase-capella_project" "default_project" {
 ########################################################################
 # Cluster
 ########################################################################
+## Check what happens when size changes
 resource "couchbase-capella_cluster" "default_cluster" {
   organization_id = var.organization_id
   project_id      = couchbase-capella_project.default_project.id
@@ -32,6 +33,7 @@ resource "couchbase-capella_cluster" "default_cluster" {
         ram = var.cluster_node_ram
       }
       disk = {
+
         storage = var.cluster_node_disk_size
         type    = var.cluster_node_disk_type
         iops    = var.cluster_node_iops
@@ -52,7 +54,7 @@ resource "couchbase-capella_cluster" "default_cluster" {
 # Custom buckets
 ########################################################################
 resource "couchbase-capella_bucket" "custom_bucket" {
-  for_each = { for idx, bucket in var.buckets_config : idx => bucket }
+  for_each = { for idx, bucket in var.buckets_config : bucket.name => bucket }
 
   name                       = each.value.name
   organization_id            = var.organization_id
@@ -70,7 +72,8 @@ resource "couchbase-capella_bucket" "custom_bucket" {
 }
 
 resource "couchbase-capella_database_credential" "custom_db_user" {
-  for_each = couchbase-capella_bucket.custom_bucket
+  depends_on = [couchbase-capella_bucket.custom_bucket]
+  for_each   = { for idx, bucket in var.buckets_config : bucket.name => bucket }
 
   name            = "${each.value.name}_db_user"
   organization_id = var.organization_id
@@ -79,7 +82,7 @@ resource "couchbase-capella_database_credential" "custom_db_user" {
 
   access = [
     {
-      privileges = ["data_writer"]
+      privileges = [each.value.db_user_permissions]
       resources = {
         buckets = [{
           name = each.value.name
@@ -89,17 +92,19 @@ resource "couchbase-capella_database_credential" "custom_db_user" {
   ]
 }
 
+
 ########################################################################
 # Sample data buckets
 ########################################################################
 resource "couchbase-capella_sample_bucket" "sample_bucket" {
-  for_each = toset(var.bucket_sample_content)
+  for_each = { for idx, config in var.bucket_sample_content_config : config.name => config }
 
   name            = each.key
   organization_id = var.organization_id
   project_id      = couchbase-capella_project.default_project.id
   cluster_id      = couchbase-capella_cluster.default_cluster.id
 }
+
 
 resource "couchbase-capella_database_credential" "sample_db_user" {
   for_each = couchbase-capella_sample_bucket.sample_bucket
@@ -111,7 +116,7 @@ resource "couchbase-capella_database_credential" "sample_db_user" {
 
   access = [
     {
-      privileges = ["data_writer"]
+      privileges = [var.bucket_sample_content_config[0].db_user_permissions]
       resources = {
         buckets = [{
           name = each.value.name
@@ -125,13 +130,15 @@ resource "couchbase-capella_database_credential" "sample_db_user" {
 # Scheduling turn on / off of cluster
 ########################################################################
 resource "couchbase-capella_cluster_onoff_schedule" "default_schedule" {
+  for_each = length(var.cluster_schedule) > 0 ? { "default" = var.cluster_schedule } : {}
+
   organization_id = var.organization_id
   project_id      = couchbase-capella_project.default_project.id
   cluster_id      = couchbase-capella_cluster.default_cluster.id
   timezone        = "Europe/Amsterdam"
 
   days = [
-    for day in var.cluster_schedule : {
+    for day in each.value : {
       day   = day.day
       state = day.state
       from  = day.state == "custom" ? day.from : null
@@ -162,11 +169,11 @@ resource "couchbase-capella_user" "default_users" {
   organization_id    = var.organization_id
   name               = each.value.name
   email              = each.value.email
-  organization_roles = ["organizationMember"]
+  organization_roles = each.value.organization_roles
 
   resources = [{
     id    = couchbase-capella_project.default_project.id
-    roles = each.value.roles
+    roles = each.value.project_roles
   }]
 
 }

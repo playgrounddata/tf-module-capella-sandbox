@@ -1,7 +1,10 @@
-variable "bucket_sample_content" {
-  type        = list(string)
-  default     = ["travel-sample"]
+variable "bucket_sample_content_config" {
   description = "Specifies the sample content to be used in the bucket. Options include travel-sample, beer-sample, or gamesim-sample."
+  type = list(object({
+    name                = string
+    db_user_permissions = optional(string, "data_writer")
+  }))
+  default = []
 }
 
 variable "buckets_config" {
@@ -17,9 +20,12 @@ variable "buckets_config" {
     flush                      = optional(bool)
     time_to_live_in_seconds    = optional(number)
     eviction_policy            = optional(string)
+    db_user_permissions        = optional(string)
   }))
   default = []
 }
+
+
 
 variable "cloud_provider" {
   description = "The cloud provider where the infrastructure is to be deployed. Default is AWS."
@@ -42,6 +48,7 @@ variable "cluster_availability" {
 variable "cluster_cidr_range" {
   description = "The CIDR range for the cluster's network."
   type        = string
+  default     = "10.0.4.0/23"
 }
 
 variable "cluster_name" {
@@ -98,6 +105,7 @@ variable "cluster_schedule" {
       minute = number
     }))
   }))
+  default = []
 }
 
 variable "cluster_scheduling_enabled" {
@@ -113,7 +121,7 @@ variable "cluster_service_support" {
 }
 
 variable "cluster_service_support_timezone" {
-  description = "The timezone for the cluster service support. Options are ET, GMT, IST or PT."
+  description = "The timezone for the cluster service support."
   type        = string
   default     = "PT"
 }
@@ -143,9 +151,10 @@ variable "project_name" {
 variable "project_permissions_users" {
   description = "A list of users with their project permissions, including names, emails, and assigned roles."
   type = list(object({
-    name  = string
-    email = string
-    roles = list(string)
+    name               = string
+    email              = string
+    organization_roles = list(string)
+    project_roles      = list(string)
   }))
   default = []
 }

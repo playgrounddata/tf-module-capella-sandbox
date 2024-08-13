@@ -31,6 +31,7 @@ output "db_user_credentials_custom_buckets" {
   value = { for u in couchbase-capella_database_credential.custom_db_user : u.name => {
     id   = u.id
     name = u.name
+    
   } }
 }
 
