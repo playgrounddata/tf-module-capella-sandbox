@@ -3,17 +3,17 @@
 ########################################################################
 output "project_id" {
   description = "The ID of the Couchbase Capella project."
-  value       = couchbase-capella_project.default_project.id
+  value       = couchbase-capella_project.default.id
 }
 
 output "cluster_configuration" {
   description = "The configuration of the Couchbase Capella cluster."
-  value       = couchbase-capella_cluster.default_cluster
+  value       = couchbase-capella_cluster.default
 }
 
 output "cluster_onoff_schedule_configuration" {
   description = "The configuration of the Couchbase Capella cluster on/off schedule."
-  value       = couchbase-capella_cluster_onoff_schedule.default_schedule
+  value       = couchbase-capella_cluster_onoff_schedule.default
 }
 
 output "custom_buckets_configuration" {
@@ -31,7 +31,7 @@ output "db_user_credentials_custom_buckets" {
   value = { for u in couchbase-capella_database_credential.custom_db_user : u.name => {
     id   = u.id
     name = u.name
-    
+
   } }
 }
 
@@ -45,12 +45,12 @@ output "db_user_credentials_sample_buckets" {
 
 output "cluster_allowed_access_cidr_ranges" {
   description = "The allowed IPs for the Couchbase Capella cluster."
-  value       = { for a in couchbase-capella_allowlist.default_allow_list : a.cidr => a.id }
+  value       = { for a in couchbase-capella_allowlist.default : a.cidr => a.id }
 }
 
 output "project_permissions_users" {
   description = "The user details with permissions on the Couchbase Capella project."
-  value = { for u in couchbase-capella_user.default_users : u.name => {
+  value = { for u in couchbase-capella_user.default : u.name => {
     email = u.email
     roles = u.organization_roles
   } }

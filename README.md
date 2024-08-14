@@ -225,18 +225,18 @@ module "couchbase_setup" {
 
 
 ```
-
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_couchbase-capella"></a> [couchbase-capella](#requirement\_couchbase-capella) | 0.2.2 |
+| <a name="requirement_couchbase-capella"></a> [couchbase-capella](#requirement\_couchbase-capella) | >= 0.2.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_couchbase-capella"></a> [couchbase-capella](#provider\_couchbase-capella) | 0.2.2 |
+| <a name="provider_couchbase-capella"></a> [couchbase-capella](#provider\_couchbase-capella) | >= 0.2.2 |
 
 ## Modules
 
@@ -246,15 +246,15 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [couchbase-capella_allowlist.default_allow_list](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/allowlist) | resource |
-| [couchbase-capella_bucket.custom_bucket](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/bucket) | resource |
-| [couchbase-capella_cluster.default_cluster](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/cluster) | resource |
-| [couchbase-capella_cluster_onoff_schedule.default_schedule](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/cluster_onoff_schedule) | resource |
-| [couchbase-capella_database_credential.custom_db_user](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/database_credential) | resource |
-| [couchbase-capella_database_credential.sample_db_user](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/database_credential) | resource |
-| [couchbase-capella_project.default_project](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/project) | resource |
-| [couchbase-capella_sample_bucket.sample_bucket](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/sample_bucket) | resource |
-| [couchbase-capella_user.default_users](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/0.2.2/docs/resources/user) | resource |
+| [couchbase-capella_allowlist.default](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/allowlist) | resource |
+| [couchbase-capella_bucket.custom_bucket](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/bucket) | resource |
+| [couchbase-capella_cluster.default](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/cluster) | resource |
+| [couchbase-capella_cluster_onoff_schedule.default](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/cluster_onoff_schedule) | resource |
+| [couchbase-capella_database_credential.custom_db_user](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/database_credential) | resource |
+| [couchbase-capella_database_credential.sample_db_user](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/database_credential) | resource |
+| [couchbase-capella_project.default](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/project) | resource |
+| [couchbase-capella_sample_bucket.sample_bucket](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/sample_bucket) | resource |
+| [couchbase-capella_user.default](https://registry.terraform.io/providers/couchbasecloud/couchbase-capella/latest/docs/resources/user) | resource |
 
 ## Inputs
 

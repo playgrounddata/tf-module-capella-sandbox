@@ -1,7 +1,7 @@
 ########################################################################
 # Projects
 ########################################################################
-resource "couchbase-capella_project" "default_project" {
+resource "couchbase-capella_project" "default" {
   organization_id = var.organization_id
   name            = var.project_name
   description     = var.project_description
@@ -10,10 +10,9 @@ resource "couchbase-capella_project" "default_project" {
 ########################################################################
 # Cluster
 ########################################################################
-## Check what happens when size changes
-resource "couchbase-capella_cluster" "default_cluster" {
+resource "couchbase-capella_cluster" "default" {
   organization_id = var.organization_id
-  project_id      = couchbase-capella_project.default_project.id
+  project_id      = couchbase-capella_project.default.id
   name            = var.cluster_name
 
   availability = {
@@ -58,8 +57,8 @@ resource "couchbase-capella_bucket" "custom_bucket" {
 
   name                       = each.value.name
   organization_id            = var.organization_id
-  project_id                 = couchbase-capella_project.default_project.id
-  cluster_id                 = couchbase-capella_cluster.default_cluster.id
+  project_id                 = couchbase-capella_project.default.id
+  cluster_id                 = couchbase-capella_cluster.default.id
   type                       = lookup(each.value, "type", "couchbase")
   storage_backend            = lookup(each.value, "storage_backend", "couchstore")
   memory_allocation_in_mb    = lookup(each.value, "memory_allocation_in_mb", 100)
@@ -77,8 +76,8 @@ resource "couchbase-capella_database_credential" "custom_db_user" {
 
   name            = "${each.value.name}_db_user"
   organization_id = var.organization_id
-  project_id      = couchbase-capella_project.default_project.id
-  cluster_id      = couchbase-capella_cluster.default_cluster.id
+  project_id      = couchbase-capella_project.default.id
+  cluster_id      = couchbase-capella_cluster.default.id
 
   access = [
     {
@@ -101,8 +100,8 @@ resource "couchbase-capella_sample_bucket" "sample_bucket" {
 
   name            = each.key
   organization_id = var.organization_id
-  project_id      = couchbase-capella_project.default_project.id
-  cluster_id      = couchbase-capella_cluster.default_cluster.id
+  project_id      = couchbase-capella_project.default.id
+  cluster_id      = couchbase-capella_cluster.default.id
 }
 
 
@@ -111,8 +110,8 @@ resource "couchbase-capella_database_credential" "sample_db_user" {
 
   name            = "${each.value.name}_db_user"
   organization_id = var.organization_id
-  project_id      = couchbase-capella_project.default_project.id
-  cluster_id      = couchbase-capella_cluster.default_cluster.id
+  project_id      = couchbase-capella_project.default.id
+  cluster_id      = couchbase-capella_cluster.default.id
 
   access = [
     {
@@ -129,12 +128,12 @@ resource "couchbase-capella_database_credential" "sample_db_user" {
 ########################################################################
 # Scheduling turn on / off of cluster
 ########################################################################
-resource "couchbase-capella_cluster_onoff_schedule" "default_schedule" {
+resource "couchbase-capella_cluster_onoff_schedule" "default" {
   for_each = length(var.cluster_schedule) > 0 ? { "default" = var.cluster_schedule } : {}
 
   organization_id = var.organization_id
-  project_id      = couchbase-capella_project.default_project.id
-  cluster_id      = couchbase-capella_cluster.default_cluster.id
+  project_id      = couchbase-capella_project.default.id
+  cluster_id      = couchbase-capella_cluster.default.id
   timezone        = "Europe/Amsterdam"
 
   days = [
@@ -150,12 +149,12 @@ resource "couchbase-capella_cluster_onoff_schedule" "default_schedule" {
 ########################################################################
 # Allowed IP:s
 ########################################################################
-resource "couchbase-capella_allowlist" "default_allow_list" {
+resource "couchbase-capella_allowlist" "default" {
   for_each = { for i, cidr in var.cluster_allowed_access_cidr_range : i => cidr }
 
   organization_id = var.organization_id
-  project_id      = couchbase-capella_project.default_project.id
-  cluster_id      = couchbase-capella_cluster.default_cluster.id
+  project_id      = couchbase-capella_project.default.id
+  cluster_id      = couchbase-capella_cluster.default.id
   cidr            = each.value
 }
 
@@ -163,7 +162,7 @@ resource "couchbase-capella_allowlist" "default_allow_list" {
 ########################################################################
 # Project permissions
 ########################################################################
-resource "couchbase-capella_user" "default_users" {
+resource "couchbase-capella_user" "default" {
   for_each = { for i, user in var.project_permissions_users : i => user }
 
   organization_id    = var.organization_id
@@ -172,7 +171,7 @@ resource "couchbase-capella_user" "default_users" {
   organization_roles = each.value.organization_roles
 
   resources = [{
-    id    = couchbase-capella_project.default_project.id
+    id    = couchbase-capella_project.default.id
     roles = each.value.project_roles
   }]
 
