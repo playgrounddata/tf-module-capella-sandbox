@@ -22,7 +22,7 @@ This repository contains Terraform code for deploying a sandbox environment on A
 ### Single node cluster deployment
 
 module "couchbase_setup" {
-  source = "./couchbase_demo_module"
+  source              = "playgrounddata/tf-module-capella-sandbox"
 
   cloud_provider      = "aws"
   organization_id     = var.organization_id
@@ -126,7 +126,7 @@ module "couchbase_setup" {
 ### Multi node cluster deployment
 
 module "couchbase_setup" {
-  source = "./couchbase_demo_module"
+  source = "playgrounddata/tf-module-capella-sandbox"
 
   cloud_provider      = "aws"
   organization_id     = var.organization_id
