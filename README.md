@@ -1,6 +1,5 @@
 # tf-module-capella-sandbox
 This repository contains Terraform code for deploying a sandbox environment on AWS with Couchbase Capella.
-The module should only be used in a sandbox environment and not in a production environment.
 
 **Included features:**
 - Project creation
@@ -13,6 +12,10 @@ The module should only be used in a sandbox environment and not in a production 
 **Prerequisites:**
 - Organization Owner permissions on Capella
 - API keys created, https://docs.couchbase.com/cloud/management-api-guide/management-api-start.html#display-management-api-keys
+
+**Important information:**
+- The module should only be used in a sandbox environment and not in a production environment.
+- Since the size of the cluster and databases can auto-expand, it is important to update the Terraform configuration to match the configuration in Capella, ensuring that changes to the cluster do not cause any disruptions.
 
 ### Examples
 ```terraform
