@@ -47,13 +47,6 @@ resource "couchbase-capella_cluster" "default" {
     timezone = var.cluster_service_support_timezone
   }
 
-  lifecycle {
-    ignore_changes = [
-      service_groups[0].node.disk.storage,
-      service_groups[0].node.disk.iops,
-    ]
-  }
-
 }
 
 ########################################################################

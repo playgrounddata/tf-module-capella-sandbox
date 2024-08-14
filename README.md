@@ -230,13 +230,13 @@ module "couchbase_setup" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_couchbase-capella"></a> [couchbase-capella](#requirement\_couchbase-capella) | >= 0.2.2 |
+| <a name="requirement_couchbase-capella"></a> [couchbase-capella](#requirement\_couchbase-capella) | >= 1.2.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_couchbase-capella"></a> [couchbase-capella](#provider\_couchbase-capella) | >= 0.2.2 |
+| <a name="provider_couchbase-capella"></a> [couchbase-capella](#provider\_couchbase-capella) | >= 1.2.1 |
 
 ## Modules
 
