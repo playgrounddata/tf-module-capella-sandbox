@@ -24,7 +24,6 @@ This repository contains Terraform code for deploying a sandbox environment on A
 module "couchbase_setup" {
   source              = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
 
-  cloud_provider      = "aws"
   organization_id     = var.organization_id
   project_name        = "Demo 1 Project"
   project_description = "My Capella sandbox project"
@@ -100,19 +99,19 @@ module "couchbase_setup" {
   project_permissions_users = [
     {
       name               = "Demo User 1"
-      email              = "user1@playgrounddata.io"
+      email              = "user1@yourorg.io"
       organization_roles = ["organizationOwner"]
       project_roles      = ["projectDataReaderWriter"]
     },
     {
       name               = "Demo User 2"
-      email              = "user2@playgrounddata.io"
+      email              = "user2@yourorg.io"
       organization_roles = ["organizationMember"]
       project_roles      = ["projectViewer"]
     },
     {
       name               = "Demo User 3"
-      email              = "user3@playgrounddata.io"
+      email              = "user3@yourorg.io"
       organization_roles = ["projectCreator"]
       project_roles      = ["projectOwner"]
     }
@@ -128,7 +127,6 @@ module "couchbase_setup" {
 module "couchbase_setup" {
   source              = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
 
-  cloud_provider      = "aws"
   organization_id     = var.organization_id
   project_name        = "Demo 1 Project"
   project_description = "My Capella sandbox project"
@@ -205,19 +203,19 @@ module "couchbase_setup" {
   project_permissions_users = [
     {
       name               = "Demo User 1"
-      email              = "user1@playgrounddata.io"
+      email              = "user1@yourorg.io"
       organization_roles = ["organizationOwner"]
       project_roles      = ["projectDataReaderWriter"]
     },
     {
       name               = "Demo User 2"
-      email              = "user2@playgrounddata.io"
+      email              = "user2@yourorg.io"
       organization_roles = ["organizationMember"]
       project_roles      = ["projectViewer"]
     },
     {
       name               = "Demo User 3"
-      email              = "user3@playgrounddata.io"
+      email              = "user3@yourorg.io"
       organization_roles = ["projectCreator"]
       project_roles      = ["projectOwner"]
     }
