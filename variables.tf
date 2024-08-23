@@ -25,14 +25,6 @@ variable "buckets_config" {
   default = []
 }
 
-
-
-variable "cloud_provider" {
-  description = "The cloud provider where the infrastructure is to be deployed. Default is AWS."
-  type        = string
-  default     = "aws"
-}
-
 variable "cluster_allowed_access_cidr_range" {
   description = "A list of CIDR ranges that are allowed to access the cluster."
   type        = list(string)
