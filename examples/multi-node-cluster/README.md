@@ -1,5 +1,13 @@
+# multi-node-cluster-example
+This example deploys a multi-node cluster on AWS.
+
+### Usage
+
+```terraform
+### Multi node cluster deployment
+
 module "couchbase_setup" {
-  source = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
+  source              = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
 
   cloud_provider      = "aws"
   organization_id     = var.organization_id
@@ -7,11 +15,11 @@ module "couchbase_setup" {
   project_description = "My Capella sandbox project"
   region              = "eu-north-1"
 
-  cluster_name                      = "singel_node_cluster"
+  cluster_name                      = "multi_node_cluster"
   cluster_cidr_range                = "10.0.4.0/23"
   cluster_allowed_access_cidr_range = [""] # Your CIDR range here.
-  cluster_availability              = "single"
-  cluster_service_support           = "basic"
+  cluster_availability              = "multi"
+  cluster_service_support           = "developer pro"
   cluster_node_iops                 = 3000
   cluster_services                  = ["data", "query", "index", "search"]
 
@@ -32,6 +40,7 @@ module "couchbase_setup" {
       db_user_permissions = "data_writer"
     },
   ]
+
 
   cluster_schedule = [
     {
@@ -95,5 +104,5 @@ module "couchbase_setup" {
     }
   ]
 
-}
 
+}

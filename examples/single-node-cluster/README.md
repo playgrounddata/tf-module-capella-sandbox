@@ -1,5 +1,12 @@
+# single-node-cluster-example
+This example deploys a single-node cluster on AWS.
+
+### Usage
+```terraform
+### Single node cluster deployment
+
 module "couchbase_setup" {
-  source = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
+  source              = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
 
   cloud_provider      = "aws"
   organization_id     = var.organization_id
@@ -97,3 +104,4 @@ module "couchbase_setup" {
 
 }
 
+```

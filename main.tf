@@ -22,7 +22,7 @@ resource "couchbase-capella_cluster" "default" {
   cloud_provider = {
     cidr   = var.cluster_cidr_range
     region = var.region
-    type   = var.cloud_provider
+    type   = "aws"
   }
 
   service_groups = [{

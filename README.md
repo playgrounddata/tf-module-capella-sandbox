@@ -22,7 +22,7 @@ This repository contains Terraform code for deploying a sandbox environment on A
 ### Single node cluster deployment
 
 module "couchbase_setup" {
-  source              = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//?ref=v1.0.0"
+  source              = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
 
   cloud_provider      = "aws"
   organization_id     = var.organization_id
@@ -126,7 +126,7 @@ module "couchbase_setup" {
 ### Multi node cluster deployment
 
 module "couchbase_setup" {
-  source              = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//?ref=v1.0.0"
+  source              = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
 
   cloud_provider      = "aws"
   organization_id     = var.organization_id
@@ -265,7 +265,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_sample_content_config"></a> [bucket\_sample\_content\_config](#input\_bucket\_sample\_content\_config) | Specifies the sample content to be used in the bucket. Options include travel-sample, beer-sample, or gamesim-sample. | <pre>list(object({<br>    name                = string<br>    db_user_permissions = optional(string, "data_writer")<br>  }))</pre> | `[]` | no |
 | <a name="input_buckets_config"></a> [buckets\_config](#input\_buckets\_config) | A list of bucket configurations. | <pre>list(object({<br>    name                       = string<br>    type                       = optional(string)<br>    storage_backend            = optional(string)<br>    memory_allocation_in_mb    = optional(number)<br>    bucket_conflict_resolution = optional(string)<br>    durability_level           = optional(string)<br>    replicas                   = optional(number)<br>    flush                      = optional(bool)<br>    time_to_live_in_seconds    = optional(number)<br>    eviction_policy            = optional(string)<br>    db_user_permissions        = optional(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_cloud_provider"></a> [cloud\_provider](#input\_cloud\_provider) | The cloud provider where the infrastructure is to be deployed. Default is AWS. | `string` | `"aws"` | no |
 | <a name="input_cluster_allowed_access_cidr_range"></a> [cluster\_allowed\_access\_cidr\_range](#input\_cluster\_allowed\_access\_cidr\_range) | A list of CIDR ranges that are allowed to access the cluster. | `list(string)` | `[]` | no |
 | <a name="input_cluster_availability"></a> [cluster\_availability](#input\_cluster\_availability) | Defines the availability of the cluster. Options include single and multi. | `string` | `"single"` | no |
 | <a name="input_cluster_cidr_range"></a> [cluster\_cidr\_range](#input\_cluster\_cidr\_range) | The CIDR range for the cluster's network. | `string` | `"10.0.4.0/23"` | no |

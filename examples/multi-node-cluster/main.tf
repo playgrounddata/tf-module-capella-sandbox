@@ -1,5 +1,5 @@
 module "couchbase_setup" {
-  source = "./couchbase_demo_module"
+  source = "git::https://github.com/playgrounddata/tf-module-capella-sandbox.git//"
 
   cloud_provider      = "aws"
   organization_id     = var.organization_id
